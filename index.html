@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Phone Directory</title>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+	<!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"> -->
+</head>
+<body>
+
+<div class="container-fluid">
+	<div class="header">
+		<p class="title">Phone Directory</p>
+	</div>
+
+	<div class="main">
+		<button class=" btn add">ADD</button><br>
+		<div class="list" id="list">
+			<table id="list-table" class="list-table">
+				<tr id="0" class="table-head">
+					<th>Name</th>
+					<th>Phone Number</th>
+					<th>Option</th>
+				</tr>
+				<tr id="1" ><td>sreehari</td><td>12312312312</td><td><button data-id="1" class='delete'>delete</button></td></tr>
+				<tr id="2" ><td>sreenu</td><td>34635234241</td><td><button data-id="2" class='delete'>delete</button></td></tr>
+				<tr id="3" ><td>srinu</td><td>34635234241</td><td><button data-id="3" class='delete'>delete</button></td></tr>
+				<tr id="4" ><td>srihari</td><td>34635234241</td><td><button data-id="4" class='delete'>delete</button></td></tr>
+			</table>			
+		</div>
+	</div>
+
+	<div class="addmain" id="addmain">
+		<button class="btn back">Back</button><br>
+		<div class="addform" id="addform">
+			<form>
+				<label>Name:</label><br>
+				<input type="text" class="input" id="name"><br><br>
+				<label>Phone:</label><br>
+				<input type="number" class="input" id="number"><br><br>
+				<p>Subscriber to be added:</p>
+				<label class="display">name:</label>&emsp;&nbsp;<label id="displayname" class="display"></label><br>
+				<label class="display">phone:</label>&emsp;<label id="displayphone" class="display" ></label><br>
+				<input type="submit" value="ADD" class="btn" id="submit">
+			</form>
+
+		</div>
+	</div>
+	
+</div>
+
+<script type="text/javascript">
+	
+var i =0;
+
+$('.add').on('click',function(e){
+	e.preventDefault();
+
+	$('.main').hide();
+	$('#addmain').show();
+
+});
+
+$('.back').on('click',function(e){
+	e.preventDefault();
+
+	$('.main').show();
+	$('#addmain').hide();
+
+});
+
+$('#name').keyup(function(e){
+	$('#displayname').text($('#name').val());
+	// console.log($('#name').val());
+});
+
+$('#number').keyup(function(e){
+	$('#displayphone').text($('#number').val());
+	// console.log($('#name').val());
+});
+
+
+
+
+var id=5;
+
+$('#submit').on('click',function(e){
+
+	e.preventDefault();
+
+	var name = $("#name").val();
+    var number = $("#number").val();
+    var markup = "<tr id="+id+" ><td>" + name + "</td><td>" + number + "</td><td><button data-id="+id+" class='delete' id='delete'>delete</button></td></tr>";
+    
+    $("#list-table").append(markup);
+
+    empty();
+
+	$('.main').show();
+	$('#addmain').hide();
+
+	id++;
+
+});
+
+
+
+
+
+$(document).on('click','.delete',function(e){
+	e.preventDefault();
+    var id = $(this).attr("data-id");
+
+    if(confirm("Are you sure to delete"))
+	{
+		$('#'+id).remove();
+	}
+
+	$('#list-table tr td button').each(function(index) {
+      	// $(this).find('span.sn').html(id-1);
+      		console.log(this);
+      	});
+
+});
+
+
+
+function empty()
+{
+
+    $('#name').val("");
+    $('#number').val("");
+
+    $('#displayname').text("");
+    $('#displayphone').text("");
+}
+
+</script>
+
+</body>
+</html>
